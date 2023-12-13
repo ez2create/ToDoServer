@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "name": "todoserver",
+  "description": "",
+  "version": "1.0.0",
+  "main": "ToDoServer.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "ToDoServer.js",
+    "dev": "nodemon ToDoServer.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ez2create/ToDoServer.git"
+  },
+  "author": "Sohail",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ez2create/ToDoServer/issues"
+  },
+  "homepage": "https://github.com/ez2create/ToDoServer#readme"
+}
