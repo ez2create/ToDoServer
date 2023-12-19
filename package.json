@@ -8,8 +8,8 @@
   "version": "1.0.0",
   "main": "ToDoServer.js",
   "scripts": {
-    "start": "ToDoServerExpress.js",
-    "dev": "nodemon ToDoServerExpress.js"
+    "start": "ToDoServer.js",
+    "dev": "nodemon ToDoServer.js"
   },
   "repository": {
     "type": "git",

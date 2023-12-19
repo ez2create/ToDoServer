@@ -1,52 +1,42 @@
-const { error } = require("console");
-const http = require ("http");
-const port = 8081;
+const express = require("express")
+const app = express()
+app.use(express.json())
+var port = 8081;
+
 const todolist= ["Hey everyone","hope all","doing good","Over there."]
 
-http.createServer((req,res)=>{
-    const {method,url}=req;
-    if(url=== "/todos"){
-        if(method==="GET"){
-        console.log("You are in the todos route and it's the GET method")
-        res.writeHead(200,{"content-type":"text/html"})
-        res.write(todolist.toString())
-        res.end()
-        }else if(method==="POST"){
-            let body = "";
-            req.on('error',(err)=>{
-                console.log(err)
-            }).on("data",(chunk)=>{
-                body += chunk;
-                console.log("chunks:",chunk)
-            }).on("end",()=>{
-                body= JSON.parse(body)
-                console.log("data:",body);
-                let newToDo= todolist;
-                newToDo.push(body.item)
-            })
-        }else if(method==="DELETE"){
-            let body = "";
-            req.on("error",(err)=>{
-                console.log(err)
-            }).on("data",(chunk)=>{
-                body+= chunk
-                console.log(chunk)
-            }).on("end",()=>{
-                body= JSON.parse(body)
-            let deleteThis =body.item;
-
-            todolist.find((elem,index)=>{
-                if(elem ===deleteThis){
-                    todolist.splice(index,1)
-                }
-            })
-            })
-
-        }
-    } else if(url=== "/"){
-        console.log("you are in the home Route ")
-    }
+app.get("/todos",(req,res)=>{
+    res.status(200).send(todolist)
 })
-.listen(port,()=>{
-    console.log(`Hey your server has statrted on port ${port}`)
+app.post("/todos",(req,res)=>{
+    let newitem = req.body.item;
+    todolist.push(newitem)
+    res.status(201).send({
+        Massage: "Item successfully added"
+    })
+})
+app.delete("/todos",(req,res)=>{
+    let deleteItem = req.body.item;
+    todolist.find((elem,index)=>{
+        if (elem===deleteItem){
+            todolist.splice(index,1);
+        }
+    })
+    res.status(204).send({
+        Massage: "Item successfully Deleted"
+    })
+})
+app.all("/todos",(req,res)=>{
+    res.status(501).send({
+        Massage:"Not implimented yet"
+    })
+})
+app.all("*",(req,res)=>{
+    res.status(501).send({
+        Massage:"Not added yet"
+    })
+})
+
+app.listen(port,()=>{
+    console.log(`we have successfully started our server with node express ${port}`) 
 })
